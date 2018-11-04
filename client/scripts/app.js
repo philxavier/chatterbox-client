@@ -13,14 +13,19 @@ var App = {
 
     // Fetch initial batch of messages
     App.startSpinner();
-    App.fetch(App.stopSpinner);
+    App.fetch(App.stopSpinner);//calling fetch using stopSpinner as CB function 
 
   },
 
   fetch: function(callback = ()=>{}) {
-    Parse.readAll((data) => {
+    Parse.readAll((data) => { 
       // examine the response from the server request:
       console.log(data);
+      var messages = data.results;
+      for (let i = 0; i < messages.length; i++) {
+        MessagesView.renderMessage(messages[i]);
+      }
+      
 
       callback();
     });
