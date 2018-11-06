@@ -3,12 +3,15 @@ var Parse = {
   server: `http://parse.${window.CAMPUS}.hackreactor.com/chatterbox/classes/messages`,
 
   create: function(message, successCB, errorCB = null) {
+    console.log(message);
     $.ajax({
       url: Parse.server,
       type: 'POST',
       data: JSON.stringify(message),
       contentType: 'application/json',
-      success: successCB,
+      success: function(data) {
+        successCB();
+      },
       error: errorCB || function(error) {
         console.error('chatterbox: Failed to POST messages', error);
       }

@@ -4,6 +4,8 @@ var App = {
 
   username: 'anonymous',
 
+  flag: 0,
+
   initialize: function() {
     App.username = window.location.search.substr(10);
 
@@ -19,16 +21,40 @@ var App = {
 
   fetch: function(callback = ()=>{}) {
     Parse.readAll((data) => { 
+
       // examine the response from the server request:
       console.log(data);
       var messages = data.results;
-      for (let i = 0; i < messages.length; i++) {
-        MessagesView.renderMessage(messages[i]);
-      }
-      
 
+      for (let i = 0; i < messages.length; i++) {
+        if (!messages[i].text) {
+          continue;
+        }
+        var test = messages[i].text.split('');
+        if (test.includes('<')) {
+          continue;
+        }
+
+        if (this.flag === 0) {
+          MessagesView.renderMessage(messages[i]);
+          RoomsView.renderRoom(messages[i].roomname);
+        } else {
+          Rooms.filter();
+        }   
+      }
+
+      this.flag++;
+      
       callback();
     });
+  },
+
+  send: function(msg) {
+
+    $('#chats').html('');
+    Parse.create(msg, App.fetch); 
+    $('#send')[0].reset();
+     
   },
 
   startSpinner: function() {

@@ -9,7 +9,9 @@ var FormView = {
   handleSubmit: function(event) {
     // Stop the browser from submitting the form
     event.preventDefault();
-    console.log('click!');
+    var messageToBeSent = Messages.createMessage();
+    App.send(messageToBeSent);
+
   },
 
   setStatus: function(active) {
