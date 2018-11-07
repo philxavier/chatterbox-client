@@ -1,18 +1,19 @@
 var Rooms = {
     
   add: function() {
-    var roomToBeAdded = document.getElementById('room field').value;
 
-    RoomsView.renderRoom(roomToBeAdded);  
+    console.log('room.add called');
+   
+    var inputRoom = $('#input_room').val();
     
-    var test = $('#room form');
-    console.log(test);
-    //$('#room form')[0].reset();
-    
+    RoomsView.renderRoom(inputRoom); 
+
+    $('input[type=\'text\'],textarea').val(''); 
+
+       
   },
 
   filter: function() {
-    console.log('lhere');
     $('#chats').html('');
     var $targetRoom = $('#rooms select').find(':selected').text();
   
@@ -32,6 +33,7 @@ var Rooms = {
         RoomsView.renderRoom(messages[i].roomname);
         if (messages[i].roomname === $targetRoom) {
           MessagesView.renderMessage(messages[i]);
+          Friends.renderFriends(messages);
         }
       }
     });   

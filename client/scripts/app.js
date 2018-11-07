@@ -13,44 +13,49 @@ var App = {
     RoomsView.initialize();
     MessagesView.initialize();
 
-    // Fetch initial batch of messages
-    App.startSpinner();
+    $('button').on('click', function() {
+      Rooms.add();
+
+    }); 
+    
+    
+    App.startSpinner(); // Fetch initial batch of messages
     App.fetch(App.stopSpinner);//calling fetch using stopSpinner as CB function 
 
   },
 
   fetch: function(callback = ()=>{}) {
-    Parse.readAll((data) => { 
+    if (App.flag) {
+      Rooms.filter();
+    } else {
+      Parse.readAll((data) => { 
 
-      // examine the response from the server request:
-      console.log(data);
-      var messages = data.results;
+        // examine the response from the server request:
+        console.log(data);
+        var messages = data.results;
+  
+        for (let i = 0; i < messages.length; i++) {
+          if (!messages[i].text) {
+            continue;
+          }
+          var test = messages[i].text.split('');
+          if (test.includes('<')) {
+            continue;
+          }
 
-      for (let i = 0; i < messages.length; i++) {
-        if (!messages[i].text) {
-          continue;
+        
+          MessagesView.renderMessage(messages[i]); //render all messages;
+          RoomsView.renderRoom(messages[i].roomname); //append rooms to dropdown menu;
+          Friends.renderFriends(messages);
         }
-        var test = messages[i].text.split('');
-        if (test.includes('<')) {
-          continue;
-        }
-
-        if (this.flag === 0) {
-          MessagesView.renderMessage(messages[i]);
-          RoomsView.renderRoom(messages[i].roomname);
-        } else {
-          Rooms.filter();
-        }   
-      }
-
-      this.flag++;
-      
-      callback();
-    });
+        
+        this.flag++;
+        callback();        
+      });
+    }    
   },
 
   send: function(msg) {
-
     $('#chats').html('');
     Parse.create(msg, App.fetch); 
     $('#send')[0].reset();

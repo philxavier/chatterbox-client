@@ -95,3 +95,7 @@ form input[type=text] {
 #rooms select {
     z-index: 999;
 }
+
+.friends {
+    color: green;
+}

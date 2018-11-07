@@ -8,10 +8,8 @@ var MessagesView = {
   renderMessage: function(msg) {
     
     var $html = $(MessageView.render(msg));
+    $html.on('click', '.username', Friends.toggleStatus);
     $html.appendTo(this.$chats);
-
-
   }
-
 
 };
