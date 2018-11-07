@@ -12,11 +12,10 @@ var Friends = {
     }
  
     var names = $('.username');
+    //console.log(names);
     
     for (let i = 0; i < names.length; i++) {
-      
       var $name = $(names[i]);
-
       if (this.friendsList.includes($name[0].innerHTML)) {
         var $text = $name.siblings();
         var $textToBeChanged = $($text[0]);
@@ -24,7 +23,8 @@ var Friends = {
         var $nameToBeChanged = $($name[0]);
         $nameToBeChanged.addClass('friends');
       }
-    }  
+    }
+  
       
     
   },

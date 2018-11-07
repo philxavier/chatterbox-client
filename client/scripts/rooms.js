@@ -33,7 +33,6 @@ var Rooms = {
         RoomsView.renderRoom(messages[i].roomname);
         if (messages[i].roomname === $targetRoom) {
           MessagesView.renderMessage(messages[i]);
-          Friends.renderFriends(messages);
         }
       }
     });   

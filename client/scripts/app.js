@@ -46,7 +46,6 @@ var App = {
         
           MessagesView.renderMessage(messages[i]); //render all messages;
           RoomsView.renderRoom(messages[i].roomname); //append rooms to dropdown menu;
-          Friends.renderFriends(messages);
         }
         
         this.flag++;
