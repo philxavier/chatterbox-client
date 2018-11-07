@@ -18,7 +18,6 @@ var RoomsView = {
     //   this.flag++;
     // }
     if (roomname) {
-      console.log(roomname);
       if (!this.holdRooms.includes(roomname)) { 
         this.holdRooms.push(roomname); 
         var $roomToBeAdded = $(`<option>${roomname}</option>`);

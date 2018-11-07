@@ -99,3 +99,7 @@ form input[type=text] {
 .friends {
     color: green;
 }
+
+.text_bold {
+    font-weight: bold;
+}
